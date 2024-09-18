@@ -1,12 +1,12 @@
 import React from "react";
-import Routes from "./Routes";
+import AppRoutes from "./Routes";
 import './global.styles.css';
 
 function App() {
   return (
     <div className="App">
       <>
-        <Routes />
+        <AppRoutes />
       </>
     </div>
   );

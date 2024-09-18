@@ -1,5 +1,5 @@
 import React from 'react';
-// import ResponsiveGrid from './components/SuiteOverView/Grid';
+import ResponsiveGrid from './components/SuiteOverView/Grid';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import PrivateRoute from './components/PrivateRoute';
 import Index from './components/Index';
@@ -41,7 +41,7 @@ const AppRoutes = () => {
         <Route path="/relatorioProdutos" element={<PrivateRoute><ProductReport /></PrivateRoute>} />
         <Route path="/relatorioReservas" element={<PrivateRoute><ReservationReport /></PrivateRoute>} />
         <Route path="/usuario" element={<PrivateRoute><UserMaintenance /></PrivateRoute>} />
-        {/* <Route path="/Grid" element={<PrivateRoute><ResponsiveGrid /></PrivateRoute>} /> */}
+        <Route path="/Grid" element={<PrivateRoute><ResponsiveGrid /></PrivateRoute>} />
       </Routes>
     </Router>
   );
