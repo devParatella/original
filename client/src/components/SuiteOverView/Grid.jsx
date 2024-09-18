@@ -1,13 +1,11 @@
-import { useState } from "react";
 import * as React from 'react';
-
 import Header from "../Body/Header";
 import NavBar from "../Body/NavBar";
 import Footer from "../Body/Footer";
 import Box from '@mui/material/Box';
 import Grid2 from '@mui/material/Grid2';
 import OutlinedCard from './Card';
-
+import Legend from './Legend';
 const cardStatus = ['Livre', 'Ocupada', 'Saída', 'Ocupada', 'Ocupada', 'Saída', 'Livre', 'Ocupada', 'Saída', 'Livre', 'Ocupada', 'Saída', 'Livre', 'Ocupada', 'Saída', 'Livre', 'Ocupada', 'Saída', 'Livre', 'Ocupada', 'Saída', 'Livre', 'Ocupada', 'Saída', 'Livre', 'Ocupada', 'Saída', 'Ocupada', 'Ocupada', 'Saída', 'Livre', 'Ocupada', 'Saída', 'Livre', 'Ocupada', 'Saída', 'Livre', 'Ocupada', 'Saída', 'Livre', 'Ocupada', 'Saída', 'Livre', 'Ocupada', 'Saída', 'Livre', 'Ocupada', 'Saída'];
 const empresa = ["_", "Bauminas", "Manufatora", "Energisa", "Bauminas", "Manufatora", "Energisa", "Bauminas", "Manufatora", "Energisa", "Bauminas", "Manufatora", "Energisa", "Bauminas", "Manufatora", "_", "Bauminas", "Manufatora", "Energisa", "Bauminas", "Manufatora", "Energisa", "Bauminas", "Manufatora", "Energisa", "Bauminas", "Manufatora", "Energisa", "Bauminas", "Manufatora", "_", "Bauminas", "Manufatora", "Energisa", "Bauminas", "Manufatora", "Energisa", "Bauminas", "Manufatora", "Energisa", "Bauminas", "Manufatora", "Energisa", "Bauminas", "Manufatora", "_", "Bauminas", "Manufatora", "Energisa", "Bauminas", "Manufatora", "Energisa", "Bauminas", "Manufatora", "Energisa", "Bauminas", "Manufatora", "Energisa", "Bauminas", "Manufatora"]
 const nome = ["_", "Manoel da Silva", "Patricio Torres", "Fernando Cabral", "Mauricio Teles", "_", "Manoel da Silva", "Patricio Torres", "Fernando Cabral", "Mauricio Teles", "_", "Manoel da Silva", "Patricio Torres", "Fernando Cabral", "Mauricio Teles", "_", "Manoel da Silva", "Patricio Torres", "Fernando Cabral", "Mauricio Teles", "_", "Manoel da Silva", "Patricio Torres", "Fernando Cabral", "Mauricio Teles", "_", "Manoel da Silva", "Patricio Torres", "Fernando Cabral", "Mauricio Teles", "_", "Manoel da Silva", "Patricio Torres", "Fernando Cabral", "Mauricio Teles", "_", "Manoel da Silva", "Patricio Torres", "Fernando Cabral", "Mauricio Teles"]
@@ -16,30 +14,14 @@ const Checkout = [" __/___/__", " 19/09/24  ", " 17/09/24  ", " 19/09/24  ", " 1
 
 // Componente principal que inclui o Header, NavBar e Footer
 function MainComponent() {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
-  const toggleSidebar = () => {
-    setIsSidebarOpen(!isSidebarOpen);
-    document.body.classList.toggle('toggle-sidebar', !isSidebarOpen);
-  };
+
+
 
   return (
     <>
-      <Header onToggleSidebar={toggleSidebar} />
-      <NavBar isOpen={isSidebarOpen} />
-      <main id="main" className="main">
-        <div className="breadcrumb-container">
-          <nav>
-            <ol className="breadcrumb">
-              <li className="breadcrumb-item">
-                <a href="/">Home</a>
-              </li>
-              <li className="breadcrumb-item active">Calendário</li>
-            </ol>
-          </nav>
-        </div>
-      </main>
-      <Footer />
+      <Header />
+      <NavBar />
     </>
   );
 }
@@ -49,8 +31,18 @@ export default function ResponsiveGrid() {
   return (
     <>
       <MainComponent />
+<Legend/>
       <Box sx={{ flexGrow: 1 }}>
-        <Grid2 container spacing={{ xs: 2, md: 1 }} columns={{ xs: 4, sm: 8, md: 12 }}>
+
+        <Grid2
+          container
+          spacing={{ xs: 2, md: 1 }}
+          columns={{ xs: 4, sm: 8, md: 12 }}
+          justifyContent="center"    
+          alignItems="center"        
+          sx={{ margin: '15px' }}    
+        >
+
           {Array.from(Array(40)).map((_, index) => (
             <Grid2 item xs={2} sm={4} md={4} key={index}>
               <OutlinedCard
@@ -65,6 +57,8 @@ export default function ResponsiveGrid() {
           ))}
         </Grid2>
       </Box>
+      <Footer />
     </>
+
   );
 }

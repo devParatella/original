@@ -18,7 +18,7 @@ import PaymentConditionsReport from './components/PaymentCondition/PaymentCondit
 import ProductReport from './components/Product/ProductReport';
 import ReservationReport from './components/Reservation/ReservationReport';
 import UserMaintenance from './components/User/UserMaintenance';
-
+import Legend from './components/SuiteOverView/Legend';
 
 const AppRoutes = () => {
   return (
@@ -28,6 +28,7 @@ const AppRoutes = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/reset-password" element={<ResetPassword />} />
+        <Route path="/Legend" element={<PrivateRoute><Legend /></PrivateRoute>} />
         <Route path="/" element={<PrivateRoute><Index /></PrivateRoute>} />
         <Route path="/calendario" element={<PrivateRoute><Calendar /></PrivateRoute>} />
         <Route path="/cadastroPagamento" element={<PrivateRoute><PaymentConditionForm /></PrivateRoute>} />

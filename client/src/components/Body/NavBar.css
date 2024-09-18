@@ -51,7 +51,7 @@
     opacity: 0;
     visibility: hidden;
     transform: translateY(-10px);
-    transition: opacity 0.3s, visibility 0.3s, transform 0.3s;
+    transition: opacity 0.3s, visibility 0.3s, transform 0.5s;
   }
   
   /* Quando o dropdown está ativo */
@@ -60,7 +60,7 @@
     display: block;
     opacity: 1;
     visibility: visible;
-    transform: translateY(0);
+    transform: translateY(2);
   }
   
   .dropdown-menu li {
