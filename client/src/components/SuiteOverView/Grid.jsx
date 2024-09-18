@@ -1,6 +1,6 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import * as React from 'react';
-import axios from "axios";
+
 import Header from "../Body/Header";
 import NavBar from "../Body/NavBar";
 import Footer from "../Body/Footer";
