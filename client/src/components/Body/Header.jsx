@@ -3,7 +3,7 @@ import { Button } from 'react-bootstrap';
 import { getUserInfo, logout } from '../User/auth';
 import ModalHelp from '../Modal/ModalHelp';
 import LogoPMS from '../../assets/img/LogoPMS.png'
-
+import NavBar from "./NavBar";
 const Header = ({ onToggleSidebar }) => {
   const [showModal, setShowModal] = useState(false);
 
@@ -20,13 +20,13 @@ const Header = ({ onToggleSidebar }) => {
     <>
              
       <header id="header" className="header fixed-top d-flex align-items-center">
-      <i className="bi bi-list toggle-sidebar-btn" onClick={onToggleSidebar} ></i>
+      
         <div className="d-flex align-items-center justify-content-between">
           <a href="/" className="logo d-flex align-items-center">
             <img src={LogoPMS} alt="Logo-PMS-Hoteleiro" />
             <span className="d-none d-lg-flex"> Hoteleiro</span>
           </a>
-
+          <NavBar/>
         </div>
         {/* <!-- End Logo --> */}
 
@@ -69,20 +69,6 @@ const Header = ({ onToggleSidebar }) => {
                 <li>
                   <hr className="dropdown-divider" />
                 </li>
-
-                {/* <li>
-                  <a
-                    className="dropdown-item d-flex align-items-center"
-                    href="/"
-                  >
-                    <i className="bi bi-gear"></i>
-                    <span>Configurações</span>
-                  </a>
-                </li>
-                <li>
-                  <hr className="dropdown-divider" />
-                </li> */}
-
                 <li>
                   <Button variant="primary" onClick={handleShow}
                     className="dropdown-item d-flex align-items-center"
@@ -91,8 +77,7 @@ const Header = ({ onToggleSidebar }) => {
                     <span>Ajuda?</span>
                   </Button>
                   <ModalHelp show={showModal} handleClose={handleClose}>
-                    <h2>Hello</h2>
-                    <p>I am a modal!</p>
+                    <p>Help</p>
                   </ModalHelp>
                 </li>
                 <li>
@@ -102,7 +87,7 @@ const Header = ({ onToggleSidebar }) => {
                 <li>
                   <button className="dropdown-item d-flex align-items-center" onClick={logout} >
                     <i className="bi bi-box-arrow-right"></i>
-                    <span>Logof</span>
+                    <span>Logout</span>
                   </button>
                 </li>
               </ul>
