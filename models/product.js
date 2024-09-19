@@ -19,7 +19,7 @@ module.exports = (sequelize, DataTypes) => {
     photo: {
       type: DataTypes.STRING,
     },
-    hourlyRate: {
+    daylyRate: {
       type: DataTypes.DECIMAL(10, 2),
       allowNull: false,
     },

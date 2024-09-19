@@ -141,81 +141,76 @@ const ReservationList = () => {
   };
 
   const formatDate = (dateString) => {
-    const checkin = new Date(dateString);
-    const checkout = new Date(dateString);
-    const optionsDate = { year: 'numeric', month: 'long', day: 'numeric' };
-    const optionsTime = { hour: '2-digit', minute: '2-digit', hour12: false };
-    const formattedDate = checkin.toLocaleDateString(undefined, optionsDate);
-    const formattedTime = checkin.toLocaleTimeString(undefined, optionsTime);
-    const formattedDateOut = checkout.toLocaleDateString(undefined, optionsDate);
-    const formattedTimeOut = checkout.toLocaleTimeString(undefined, optionsTime);
-    return `${formattedDate} às ${formattedTime}, ${formattedDateOut} até ${formattedTimeOut}`;
+    const date = new Date(dateString);
+    return date.toLocaleString('pt-BR', {
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+    });
   };
 
   return (
     <>
-      <body className="">
-        <Header onToggleSidebar={toggleSidebar} />
-        <NavBar isOpen={isSidebarOpen} />
-        <main id="main" className="main">
-          <div className="">
-            <h1>Listar Reservas</h1>
-            <nav>
-              <ol className="breadcrumb">
-                <li className="breadcrumb-item">
-                  <a href="/">Home</a>
-                </li>
-                <li className="breadcrumb-item">Movimentações</li>
-                <li className="breadcrumb-item active">Listar Reservas</li>
-              </ol>
-            </nav>
-          </div>
-          <div className="reservations-container">
-            {reservations.map((reservation) => (
-              <div className={`reservation-card ${reservation.cancelled ? 'cancelled' : ''}`} key={reservation.id}>
-                <p className="id">ID: {reservation.id} </p>
-                <p>Checkin: {formatDate(reservation.checkin)}</p>
-                <p>Checkout: {formatDate(reservation.checkout)}</p>
-                <p className={`status-view ${reservation.status === 'Cancelada' ? 'cancelled-status' : ''}`}>
-                  Status: {reservation.status}
-                </p>
-                <p className="payment-method">
-                  Método de Pagamento: {getPaymentConditionName(reservation.paymentConditionId)}
-                </p>
-                <p>Diárias Reservadas: {reservation.duration} {reservation.duration === 1 ? "Diária" : "Diárias"}</p>
-                <p className="totalValue">Valor Total: R${reservation.totalValue}</p>
-                <ul className="products-list">
-                  {reservation.Products.map((product) => (
-                    <li className="product-item" key={product.id}>
-                      <p className="product-name">Ácomodação: {product.name}</p>
-                      <p className="hourly-rate">Valor por Diária: R${product.hourlyRate}</p>
-                    </li>
-                  ))}
-                </ul>
-                <hr />
-                <div className="reservation-footer">
-                  <div className="reservation-buttons">
-                    {reservation.cancelled || updatedReservations.includes(reservation.id) ? (
-                      <>
-                        <button className="reservation-finish-button finished" disabled>Finalizada</button>
-                        <button className="reservation-cancel-button cancelled" disabled>Cancelado</button>
-                      </>
-
-                    ) : (
-                      <>
-                        <button className="reservation-finish-button" onClick={() => handleFinish(reservation.id)}>Finalizar</button>
-                        <button className="reservation-cancel-button" onClick={() => handleCancel(reservation.id)}>Cancelar</button>
-                      </>
-                    )}
-
-                  </div>
+      <Header onToggleSidebar={toggleSidebar} />
+      <NavBar isOpen={isSidebarOpen} />
+      <main id="main" className="main">
+        <div className="breadcrumb-container">
+          <h1>Listar Reservas</h1>
+          <nav>
+            <ol className="breadcrumb">
+              <li className="breadcrumb-item">
+                <a href="/">Home</a>
+              </li>
+              <li className="breadcrumb-item">Movimentações</li>
+              <li className="breadcrumb-item active">Listar Reservas</li>
+            </ol>
+          </nav>
+        </div>
+        <div className="reservations-container">
+          {reservations.map((reservation) => (
+            <div className={`reservation-card ${reservation.cancelled ? 'cancelled' : ''}`} key={reservation.id}>
+              <p className="id">ID: {reservation.id} </p>
+              <p>Check-in: {formatDate(reservation.checkin)}</p>
+              <p>Check-out: {formatDate(reservation.checkout)}</p>
+              <p className={`status-view ${reservation.status === 'Cancelada' ? 'cancelled-status' : ''}`}>
+                Status: {reservation.status}
+              </p>
+              <p className="payment-method">
+                Método de Pagamento: {getPaymentConditionName(reservation.paymentConditionId)}
+              </p>
+              <p>Diárias Reservadas: {reservation.duration} {reservation.duration === 1 ? "Diária" : "Diárias"}</p>
+              <p className="totalValue">Valor Total: R${reservation.totalValue.toFixed(2)}</p>
+              <ul className="products-list">
+                {reservation.products && reservation.products.map((product) => (
+                  <li className="product-item" key={product.id}>
+                    <p className="product-name">Acomodação: {product.name}</p>
+                    <p className="dayly-rate">Valor por Diária: R${product.daylyRate.toFixed(2)}</p>
+                  </li>
+                ))}
+              </ul>
+              <hr />
+              <div className="reservation-footer">
+                <div className="reservation-buttons">
+                  {reservation.cancelled || updatedReservations.includes(reservation.id) ? (
+                    <>
+                      <button className="reservation-finish-button finished" disabled>Finalizada</button>
+                      <button className="reservation-cancel-button cancelled" disabled>Cancelado</button>
+                    </>
+                  ) : (
+                    <>
+                      <button className="reservation-finish-button" onClick={() => handleFinish(reservation.id)}>Finalizar</button>
+                      <button className="reservation-cancel-button" onClick={() => handleCancel(reservation.id)}>Cancelar</button>
+                    </>
+                  )}
                 </div>
               </div>
-            ))}
-          </div>
-        </main>
-        <Footer />
-      </body>
+            </div>
+          ))}
+        </div>
+      </main>
+      <Footer />
     </>
   );
 };

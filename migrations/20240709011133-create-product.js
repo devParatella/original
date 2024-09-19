@@ -29,7 +29,7 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: true
       },
-      hourlyRate: {
+      daylyRate: {
         type: Sequelize.DECIMAL(10, 2),
         allowNull: false
       },

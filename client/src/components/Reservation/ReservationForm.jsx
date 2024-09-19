@@ -87,7 +87,7 @@ const ReservationForm = () => {
     );
 
     if (product && paymentCondition) {
-      const productTotal = product.hourlyRate * duration;
+      const productTotal = product.daylyRate * duration;
       setAddedProducts([
         ...addedProducts,
         {
@@ -190,13 +190,13 @@ const ReservationForm = () => {
 
     function formatDate(dateString) {
       const date = new Date(dateString);
-      date.setHours(date.getHours() + 3); // Ajuste para fuso horário
+      date.setDays(date.getDays() + 3); // Ajuste para fuso horário
       const day = String(date.getDate()).padStart(2, "0");
       const month = String(date.getMonth() + 1).padStart(2, "0");
       const year = date.getFullYear();
-      const hours = String(date.getHours()).padStart(2, "0");
+      const days = String(date.getDays()).padStart(2, "0");
       const minutes = String(date.getMinutes()).padStart(2, "0");
-      return `${day}/${month}/${year} - ${hours}:${minutes}`;
+      return `${day}/${month}/${year} - ${days}:${minutes}`;
     }
 
     var docDefinition = {
@@ -521,7 +521,7 @@ const ReservationForm = () => {
                         <th className="col-id">ID</th>
                         <th className="col-product">Acomodação</th>
                         <th className="col-value">Valor</th>
-                        <th className="col-hours">Diárias</th>
+                        <th className="col-days">Diárias</th>
                         <th className="col-total">Total</th>
                         <th className="col-remove"></th>
                       </tr>
@@ -531,8 +531,8 @@ const ReservationForm = () => {
                         <tr key={index}>
                           <td className="col-id">{product.id}</td>
                           <td className="col-product">{product.name}</td>
-                          <td className="col-value">R$ {product.hourlyRate}</td>
-                          <td className="col-hours">{product.quantity}</td>
+                          <td className="col-value">R$ {product.daylyRate}</td>
+                          <td className="col-days">{product.quantity}</td>
                           <td className="col-total">
                             R$ {product.total.toFixed(2)}
                           </td>

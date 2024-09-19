@@ -13,7 +13,7 @@ const options = {
       schemas: {
         Product: {
           type: 'object',
-          required: ['id', 'name', 'description', 'capacity', 'location', 'photo', 'hourlyRate'],
+          required: ['id', 'name', 'description', 'capacity', 'location', 'photo', 'daylyRate'],
           properties: {
             id: {
               type: 'integer',
@@ -39,9 +39,9 @@ const options = {
               type: 'string',
               description: 'The product photo',
             },
-            hourlyRate: {
+            daylyRate: {
               type: 'decimal',
-              description: 'The product hourlyRate',
+              description: 'The product daylyRate',
             },
           },
           example: {
@@ -51,7 +51,7 @@ const options = {
             capacity: 1,
             location: 'XXX',
             photo: 'upload\\4b8ee0d9ee557e51e459827d25d78760',
-            hourlyRate: '20.00',
+            daylyRate: '20.00',
             createdAt: '2024-01-01T00:00:00.000Z',
             updatedAt: '2024-01-01T00:00:00.000Z'
           },

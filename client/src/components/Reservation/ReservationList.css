@@ -16,8 +16,8 @@
 .payment-method,
 .totalValue,
 .product-name,
-.hours-reserved,
-.hourly-rate {
+.days-reserved,
+.dayly-rate {
   margin: 5px 0;
 }
   

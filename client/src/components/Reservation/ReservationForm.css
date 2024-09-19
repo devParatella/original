@@ -206,7 +206,7 @@
     width: 10%;
 }
   
-.col-hours {
+.col-days {
     width: 10%;
 }
   
@@ -255,7 +255,7 @@
       width: 23%; 
     }
 
-    .col-hours {
+    .col-days {
         width: 3%;
     }
 
@@ -279,7 +279,7 @@
   
     .col-product,
     .col-value,
-    .col-hours,
+    .col-days,
     .col-remove,
     .col-total {
       width: auto;
