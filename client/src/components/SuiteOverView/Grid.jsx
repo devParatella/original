@@ -1,11 +1,12 @@
 import * as React from 'react';
-import Header from "../Body/Header";
+// import Header from "../Body/Header";
 import NavBar from "../Body/NavBar";
 import Footer from "../Body/Footer";
 import Box from '@mui/material/Box';
 import Grid2 from '@mui/material/Grid2';
 import OutlinedCard from './Card';
 import Legend from './Legend';
+import './grid.css';
 const cardStatus = ['Livre', 'Ocupada', 'Saída', 'Ocupada', 'Ocupada', 'Saída', 'Livre', 'Ocupada', 'Saída', 'Livre', 'Ocupada', 'Saída', 'Livre', 'Ocupada', 'Saída', 'Livre', 'Ocupada', 'Saída', 'Livre', 'Ocupada', 'Saída', 'Livre', 'Ocupada', 'Saída', 'Livre', 'Ocupada', 'Saída', 'Ocupada', 'Ocupada', 'Saída', 'Livre', 'Ocupada', 'Saída', 'Livre', 'Ocupada', 'Saída', 'Livre', 'Ocupada', 'Saída', 'Livre', 'Ocupada', 'Saída', 'Livre', 'Ocupada', 'Saída', 'Livre', 'Ocupada', 'Saída'];
 const empresa = ["_", "Bauminas", "Manufatora", "Energisa", "Bauminas", "Manufatora", "Energisa", "Bauminas", "Manufatora", "Energisa", "Bauminas", "Manufatora", "Energisa", "Bauminas", "Manufatora", "_", "Bauminas", "Manufatora", "Energisa", "Bauminas", "Manufatora", "Energisa", "Bauminas", "Manufatora", "Energisa", "Bauminas", "Manufatora", "Energisa", "Bauminas", "Manufatora", "_", "Bauminas", "Manufatora", "Energisa", "Bauminas", "Manufatora", "Energisa", "Bauminas", "Manufatora", "Energisa", "Bauminas", "Manufatora", "Energisa", "Bauminas", "Manufatora", "_", "Bauminas", "Manufatora", "Energisa", "Bauminas", "Manufatora", "Energisa", "Bauminas", "Manufatora", "Energisa", "Bauminas", "Manufatora", "Energisa", "Bauminas", "Manufatora"]
 const nome = ["_", "Manoel da Silva", "Patricio Torres", "Fernando Cabral", "Mauricio Teles", "_", "Manoel da Silva", "Patricio Torres", "Fernando Cabral", "Mauricio Teles", "_", "Manoel da Silva", "Patricio Torres", "Fernando Cabral", "Mauricio Teles", "_", "Manoel da Silva", "Patricio Torres", "Fernando Cabral", "Mauricio Teles", "_", "Manoel da Silva", "Patricio Torres", "Fernando Cabral", "Mauricio Teles", "_", "Manoel da Silva", "Patricio Torres", "Fernando Cabral", "Mauricio Teles", "_", "Manoel da Silva", "Patricio Torres", "Fernando Cabral", "Mauricio Teles", "_", "Manoel da Silva", "Patricio Torres", "Fernando Cabral", "Mauricio Teles"]
@@ -15,12 +16,9 @@ const Checkout = [" __/___/__", " 19/09/24  ", " 17/09/24  ", " 19/09/24  ", " 1
 // Componente principal que inclui o Header, NavBar e Footer
 function MainComponent() {
 
-
-
-
   return (
     <>
-      <Header />
+      {/* <Header /> */}
       <NavBar />
     </>
   );
@@ -30,17 +28,19 @@ function MainComponent() {
 export default function ResponsiveGrid() {
   return (
     <>
+    <div className="container">
       <MainComponent />
-<Legend/>
+      <Legend />
+ 
       <Box sx={{ flexGrow: 1 }}>
 
         <Grid2
           container
           spacing={{ xs: 2, md: 1 }}
           columns={{ xs: 4, sm: 8, md: 12 }}
-          justifyContent="center"    
-          alignItems="center"        
-          sx={{ margin: '15px' }}    
+          justifyContent="center"
+          alignItems="center"
+          sx={{ margin: '15px' }}
         >
 
           {Array.from(Array(40)).map((_, index) => (
@@ -58,6 +58,7 @@ export default function ResponsiveGrid() {
         </Grid2>
       </Box>
       <Footer />
+      </div>
     </>
 
   );

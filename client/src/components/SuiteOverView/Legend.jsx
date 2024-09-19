@@ -5,13 +5,13 @@ import { styled } from '@mui/material/styles';
 
 const ColorLabel = styled(Typography)(({ color }) => ({
     display: 'inline-block',
-    padding: '4px 8px',
+    padding: '1px 4px',
     border: `2px solid ${color}`,
     borderRadius: '4px',
     marginRight: '10px',
-    background: color,  // Aplicando o gradiente como fundo
-    color: 'white',     // Texto branco para contraste
-    border: '1px solid transparent',
+    background: color,
+    color: 'white',
+
 }));
 
 const Legend = () => {
@@ -30,9 +30,9 @@ const Legend = () => {
                 sx={{ marginBottom: '15px' }}
             >
                 {/* Siglas */}
-                <ColorLabel color="black">SSL - Suíte Super Luxo</ColorLabel>
-                <ColorLabel color="black">SRM - Suíte Real Master</ColorLabel>
-                <ColorLabel color="black">SST - Suíte Standart</ColorLabel>
+                <ColorLabel color="black">SL - Super Luxo</ColorLabel>
+                <ColorLabel color="black">RM - Real Master</ColorLabel>
+                <ColorLabel color="black">ST - Standart</ColorLabel>
                 <Box
                     display="flex"
                     flexDirection="row"
@@ -46,8 +46,8 @@ const Legend = () => {
                     <ColorLabel color="purple">SAÍDA EXTRAPOLADA</ColorLabel>
                     <ColorLabel color="gray">Cinza</ColorLabel>
                     <ColorLabel color="orange">suja</ColorLabel>
-                    <ColorLabel color="linear-gradient(to right, green 50%, red 50%)">SAÍDA  HOJE
-                    </ColorLabel>
+                    <ColorLabel color="linear-gradient(to right, green 50%, red 50%)">
+                        SAÍDA  HOJE</ColorLabel>
                 </Box>
             </Box>
 

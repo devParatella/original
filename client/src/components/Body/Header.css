@@ -1,17 +1,11 @@
 .navbar-macos {
     background-color: #f9f9f9;
-    padding: 5px;
+    padding: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     display: flex;
     justify-content: flex-start;
   }
   
-  .logo {
-    margin-top: 90px;
-    min-width: 80px;
-    min-height: 80px;
-    margin-right: 0px;
-  }
   .navbar-list {
     list-style: none;
     display: flex;

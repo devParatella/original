@@ -1,6 +1,8 @@
+
 import React, { useState } from "react";
 import { logout } from "../User/auth";
 import './NavBar.css'; // Estilos personalizados para o dropdown
+import LogoPMS from '../../assets/img/LogoPMS.png'
 
 const NavBar = () => {
   const [openMenu, setOpenMenu] = useState({
@@ -17,8 +19,16 @@ const NavBar = () => {
   };
 
   return (
-    <nav className="navbar-macos">
+    <nav className="navbar-macos fixed-top" >
+            
+          <div>
+            <a href="/" className="logo">
+              <img src={LogoPMS} alt="Logo-PMS-Hoteleiro" />
+            </a>
+          </div>
+       
       <ul className="navbar-list">
+
         <li className="navbar-item">
           <a href="/calendario" className="navbar-link">
             <i className="bi bi-grid"></i> Dashboard

@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import Header from "../Body/Header";
+// import Header from "../Body/Header";
 import NavBar from "../Body/NavBar";
 import Footer from "../Body/Footer";
+import Legend from "../SuiteOverView/Legend";
 import moment from "moment";
 import 'moment/locale/pt-br';
 import { Calendar, momentLocalizer } from "react-big-calendar";
@@ -65,28 +66,15 @@ const Calendario = () => {
     fetchReservations();
   }, []);
 
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
-  const toggleSidebar = () => {
-    setIsSidebarOpen(!isSidebarOpen);
-    document.body.classList.toggle('toggle-sidebar', !isSidebarOpen);
-  };
   return (
     <>
-      <Header onToggleSidebar={toggleSidebar} />
-      <NavBar isOpen={isSidebarOpen} />
-      <main id="main" className="main">
-        <div className="breadcrumb-container">
-          <nav>
-            <ol className="breadcrumb">
-              <li className="breadcrumb-item">
-                <a href="/">Home</a>
-              </li>
-              <li className="breadcrumb-item active">Calendário</li>
-            </ol>
-          </nav>
-        </div>
-        <div>
+    <div className="container">
+
+      <NavBar />
+      <Legend />
+      <main>
+
           <DragAndDropCalendar
             defaultDate={moment().toDate()}
             defaultviews="month"
@@ -96,9 +84,10 @@ const Calendario = () => {
             className="calendar"
             messages={messages}
           />
-        </div>
+        
       </main>
       <Footer />
+      </div>
     </>
   );
 };

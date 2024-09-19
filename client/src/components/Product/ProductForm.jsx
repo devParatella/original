@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Swal from 'sweetalert2';
-import Header from '../Body/Header';
+// import Header from '../Body/Header';
 import NavBar from '../Body/NavBar';
 import Footer from '../Body/Footer';
 import { createProduct } from '../../services/productService';
@@ -74,31 +74,15 @@ const ProductForm = () => {
     }
   };
 
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isSidebarOpen, ] = useState(false); //setIsSidebarOpen
 
-  const toggleSidebar = () => {
-    setIsSidebarOpen(!isSidebarOpen);
-    document.body.classList.toggle('toggle-sidebar', !isSidebarOpen);
-  };
+
 
   return (
     <>
-      <Header onToggleSidebar={toggleSidebar} />
       <NavBar isOpen={isSidebarOpen} />
       <main id="main" className="main">
-        <div className="breadcrumb-container">
-          <h1>Cadastro de Acomodações</h1>
-          <nav>
-            <ol className="breadcrumb">
-              <li className="breadcrumb-item">
-                <a href="/">Home</a>
-              </li>
-              <li className="breadcrumb-item">Cadastro</li>
-              <li className="breadcrumb-item active">Cadastro de Acomodação</li>
-            </ol>
-          </nav>
-        </div>
-        {/* <!-- End Page Title --> */}
+
         <div className="product-form-container">
           <form onSubmit={handleSubmit} className="product-form-grid">
             {/* Lado esquerdo - campo de texto */}
