@@ -344,80 +344,6 @@ const ReservationForm = () => {
                     <div>12:00h</div>
                   </div>
                 </div>
-
-                <div className="reservation-form-group">
-                  <label>Nome do Solicitante</label>
-                  <input
-                    type="text"
-                    placeholder="Nome da pessoa solicitando a reserva"
-                    value={requesterName}
-                    onChange={(e) => setRequesterName(e.target.value)}
-                    required
-                  />
-                </div>
-
-                <div className="reservation-form-group">
-                  <label>Nome da Empresa</label>
-                  <input
-                    type="text"
-                    placeholder="Nome da empresa ou agência"
-                    value={companyName}
-                    onChange={(e) => setCompanyName(e.target.value)}
-                  />
-                </div>
-
-                <div className="reservation-form-group">
-                  <label>Telefone para Contato</label>
-                  <input
-                    type="text"
-                    placeholder="Número de telefone para contato"
-                    value={phone}
-                    onChange={(e) => setPhone(e.target.value)}
-                    required
-                  />
-                </div>
-
-                <div className="reservation-form-group">
-                  <label>E-mail para Contato</label>
-                  <input
-                    type="email"
-                    placeholder="E-mail para envio do voucher"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                  />
-                  <div className="reservation-form-checkbox">
-                    <input
-                      type="checkbox"
-                      checked={emailVoucher}
-                      onChange={() => setEmailVoucher(!emailVoucher)}
-                    />
-                    <label>Enviar voucher e atualizações por e-mail</label>
-                  </div>
-                </div>
-
-                <div className="reservation-form-group">
-                  <label>Evento</label>
-                  <select
-                    value={eventType}
-                    onChange={(e) => setEventType(e.target.value)}
-                  >
-                    <option value="">Nenhum</option>
-                    <option value="casamento">Casamento</option>
-                    <option value="conferencia">Conferência</option>
-                    <option value="outro">Outro</option>
-                  </select>
-                </div>
-
-                <div className="reservation-form-group">
-                  <label>Observações</label>
-                  <textarea
-                    placeholder="Informações adicionais sobre a reserva"
-                    value={observations}
-                    onChange={(e) => setObservations(e.target.value)}
-                    rows="4"
-                  />
-                </div>
-
                 <div className="reservation-form-group tipoPadrao">
                   <div>
                     <label>Tipo</label>
@@ -446,7 +372,7 @@ const ReservationForm = () => {
 
                 <div className="reservation-form-group qtd">
                   <div>
-                    <label>Quantidade</label>
+                    <label>Disponível</label>
                     <input
                       type="number"
                       placeholder="Inventário"
@@ -477,6 +403,90 @@ const ReservationForm = () => {
                       <option value="3">03</option>
                     </select>
                   </div>
+                  <div >
+                    <label>Evento</label>
+                    <select
+                      value={eventType}
+                      onChange={(e) => setEventType(e.target.value)}
+                    >
+                      <option value="">Nenhum</option>
+                      <option value="casamento">Casamento</option>
+                      <option value="conferencia">Conferência</option>
+                      <option value="outro">Aniversário</option>
+
+                    </select>
+                  </div>
+                </div>
+
+                <div className="reservation-form-group">
+                  <label>Nome do Hóspede</label>
+                  <input
+                    type="text"
+                    placeholder="Digite o nome completo"
+                    value={guest}
+                    onChange={handleGuestName}
+                  />
+                </div>
+                <div className="reservation-selected-product">
+                  <div className="reservation-form-group">
+                    <label>Acomodação</label>
+                    <select
+                      value={selectedProduct}
+                      onChange={(e) => setSelectedProduct(e.target.value)}
+                    >
+                      <option value="">Selecione uma acomodação</option>
+                      {products.map((product) => (
+                        <option key={product.id} value={product.id}>
+                          {product.name}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+
+                  <div className="product-add-button">
+                    <button
+                      type="button"
+                      // className="reservation-product-button"
+                      onClick={handleAddProduct}
+                    >
+                      Adicionar à Lista
+                    </button>
+                  </div>
+                </div>
+
+
+
+                <div className="reservation-form-group">
+                  <label>Nome da Empresa</label>
+                  <input
+                    type="text"
+                    placeholder="Nome da empresa ou agência"
+                    value={companyName}
+                    onChange={(e) => setCompanyName(e.target.value)}
+                  />
+                </div>
+
+                <div className="reservation-form-group contatos">
+                  <div>
+                    <label>Telefone</label>
+                    <input
+                      type="text"
+                      placeholder="Número de telefone para contato"
+                      value={phone}
+                      onChange={(e) => setPhone(e.target.value)}
+                      required
+                    />
+                  </div>
+                  <div className="reservation-form-group">
+                    <label>E-mail para Contato</label>
+                    <input
+                      type="email"
+                      placeholder="E-mail para envio do voucher"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                    />
+
+                  </div>
                 </div>
 
                 <div className="reservation-form-group">
@@ -496,90 +506,66 @@ const ReservationForm = () => {
                     ))}
                   </select>
                 </div>
-
-                <div className="reservation-form-group">
-                  <label>Nome do Hóspede</label>
-                  <input
-                    type="text"
-                    placeholder="Digite o nome completo"
-                    value={guest}
-                    onChange={handleGuestName}
-                  />
+                <div className="reservation-submit">
+                  <form onSubmit={handleSubmit} className="reservation-total-form">
+                    <div className="reservation-total-container">
+                      <h3>Valor Total da Reserva: </h3>
+                      <p>R$ {totalValue.toFixed(2)}</p>
+                      <button type="submit" className="reservation-form-button">
+                        Salvar Reserva
+                      </button>
+                    </div>
+                  </form>
                 </div>
-
-                <div className="reservation-form-group selectProduct">
-                  <label>Selecionar Acomodação(s)</label>
-                  <select
-                    value={selectedProduct}
-                    onChange={(e) => setSelectedProduct(e.target.value)}
-                  >
-                    <option value="">Selecione uma acomodação</option>
-                    {products.map((product) => (
-                      <option key={product.id} value={product.id}>
-                        {product.name}
-                      </option>
-                    ))}
-                  </select>
-                  <button
-                    type="button"
-                    className="reservation-product-button"
-                    onClick={handleAddProduct}
-                  >
-                    Adicionar Acomodação
-                  </button>
-                </div>
-
-                <table className="reservation-product-table">
-                  <thead>
-                    <tr>
-                      <th className="col-id">ID</th>
-                      <th className="col-product">Acomodação</th>
-                      <th className="col-value">Valor</th>
-                      <th className="col-hours">Diárias</th>
-                      <th className="col-total">Total</th>
-                      <th className="col-remove"></th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {addedProducts.map((product, index) => (
-                      <tr key={index}>
-                        <td className="col-id">{product.id}</td>
-                        <td className="col-product">{product.name}</td>
-                        <td className="col-value">R$ {product.hourlyRate}</td>
-                        <td className="col-hours">{product.quantity}</td>
-                        <td className="col-total">
-                          R$ {product.total.toFixed(2)}
-                        </td>
-                        <td className="col-remove">
-                          <button
-                            type="button"
-                            onClick={() => handleRemoveProduct(index)}
-                            className="reservation-remove-button"
-                          >
-                            <img
-                              src={RemoveImageButton}
-                              alt="Botão de remoção"
-                            />
-                          </button>
-                        </td>
+                <div className="reservation-product-table-container">
+                  <table className="reservation-product-table">
+                    <thead>
+                      <tr>
+                        <th className="col-id">ID</th>
+                        <th className="col-product">Acomodação</th>
+                        <th className="col-value">Valor</th>
+                        <th className="col-hours">Diárias</th>
+                        <th className="col-total">Total</th>
+                        <th className="col-remove"></th>
                       </tr>
-                    ))}
-                  </tbody>
-                </table>
+                    </thead>
+                    <tbody>
+                      {addedProducts.map((product, index) => (
+                        <tr key={index}>
+                          <td className="col-id">{product.id}</td>
+                          <td className="col-product">{product.name}</td>
+                          <td className="col-value">R$ {product.hourlyRate}</td>
+                          <td className="col-hours">{product.quantity}</td>
+                          <td className="col-total">
+                            R$ {product.total.toFixed(2)}
+                          </td>
+                          <td className="col-remove">
+                            <button
+                              type="button"
+                              onClick={() => handleRemoveProduct(index)}
+                              className="reservation-remove-button"
+                            >
+                              <img
+                                src={RemoveImageButton}
+                                alt="Botão de remoção"
+                              />
+                            </button>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
 
-                <form onSubmit={handleSubmit} className="reservation-total-form">
-                  <div className="reservation-total-container">
-                    <h3>Valor Total da Reserva: </h3>
-                    <p>R$ {totalValue.toFixed(2)}</p>
-                    <button type="submit" className="reservation-form-button">
-                      Salvar Reserva
-                    </button>
-                  </div>
-                </form>
+                  </table>
+                </div>
+
               </form>
+
             </div>
+
           </div>
+
         </main>
+
         <Footer />
       </div>
     </>

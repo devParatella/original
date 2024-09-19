@@ -39,13 +39,16 @@ const Legend = () => {
                     alignItems="center"
                     justifyContent="center"
                 >
-                    {/* Legendagem de Cores */}
+                    {/* Legendas de Cores */}
                     <ColorLabel color="red">Ocupada</ColorLabel>
-                    <ColorLabel color="green">Desocupada</ColorLabel>
+                    <ColorLabel color="green">Livre</ColorLabel>
                     <ColorLabel color="blue">Manutenção</ColorLabel>
                     <ColorLabel color="purple">SAÍDA EXTRAPOLADA</ColorLabel>
                     <ColorLabel color="gray">Cinza</ColorLabel>
-                    <ColorLabel color="orange">suja</ColorLabel>
+                    <ColorLabel color="darkOrange">Suja</ColorLabel>
+                    <ColorLabel color="brown">Reservada</ColorLabel>
+                    <ColorLabel color="linear-gradient(to right, darkOrange 50%, green 50%)">
+                        Camareira</ColorLabel>
                     <ColorLabel color="linear-gradient(to right, green 50%, red 50%)">
                         SAÍDA  HOJE</ColorLabel>
                 </Box>
