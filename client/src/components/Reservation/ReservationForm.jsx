@@ -488,7 +488,8 @@ const ReservationForm = () => {
 
                   </div>
                 </div>
-
+  <div></div>
+  <div></div>
                 <div className="reservation-form-group">
                   <label>Forma de Pagamento</label>
                   <select
@@ -557,7 +558,15 @@ const ReservationForm = () => {
 
                   </table>
                 </div>
-
+                <div className="reservation-form-group obs">
+                  <label>Observações</label>
+                  <textarea
+                    placeholder="Digite aqui as observações"
+                    value={guest}
+                    onChange={handleGuestName}
+                    rows={2} //
+                  />
+                </div>
               </form>
 
             </div>

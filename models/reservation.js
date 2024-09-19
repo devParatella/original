@@ -1,4 +1,5 @@
 // models/Reservation.js
+
 module.exports = (sequelize, DataTypes) => {
   const Reservation = sequelize.define("Reservation", {
     checkin: {
@@ -13,45 +14,93 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    status: {
-      type: DataTypes.ENUM("Aberta", "Cancelada", "Finalizada"),
-      defaultValue: "Aberta",
-    },
-    repeat: {
-      type: DataTypes.ENUM("None", "Daily", "Weekly", "Monthly"),
-      defaultValue: "None",
-    },
-    repeatCount: {
-      type: DataTypes.INTEGER,
-      defaultValue: 0,
-    },
-    repeatId: {
-      type: DataTypes.INTEGER,
-      defaultValue: 0,
-    },
-    totalValue: {
-      type: DataTypes.DECIMAL(10, 2),
-      defaultValue: 0,
-    },
-    userId: {
+    qtdGuest: {
       type: DataTypes.INTEGER,
       allowNull: false,
       defaultValue: 1,
     },
+    qtdChild: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      defaultValue: 0,
+    },
+    stand: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      defaultValue: "Standart",
+    },
+    tipo: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      defaultValue: "Solteiro",
+    },
+    guest: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    requesterName: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    companyName: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    phone: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    email: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    emailVoucher: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
+    },
+    eventType: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    observations: {
+      type: DataTypes.TEXT,
+      allowNull: true,
+    },
+    status: {
+      type: DataTypes.ENUM("Aberta", "Cancelada", "Finalizada"),
+      defaultValue: "Aberta",
+    },
+    totalValue: {
+      type: DataTypes.DECIMAL(10, 2),
+      allowNull: false,
+      defaultValue: 0.0,
+    },
     paymentConditionId: {
       type: DataTypes.INTEGER,
       allowNull: false,
-
+    },
+    userId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
     },
   });
 
   Reservation.associate = (models) => {
-    Reservation.belongsTo(models.User, { foreignKey: 'userId' });
-    Reservation.belongsTo(models.PaymentCondition, { foreignKey: 'paymentConditionId' });
+    // Associação com o usuário que criou a reserva
+    Reservation.belongsTo(models.User, { foreignKey: "userId", as: "user" });
+
+    // Associação com a condição de pagamento
+    Reservation.belongsTo(models.PaymentCondition, {
+      foreignKey: "paymentConditionId",
+      as: "paymentCondition",
+    });
+
+    // Associação muitos-para-muitos com produtos
     Reservation.belongsToMany(models.Product, {
       through: models.ReservationProducts,
-      foreignKey: 'reservationId',
-      otherKey: 'productId',
+      foreignKey: "reservationId",
+      otherKey: "productId",
+      as: "products",
     });
   };
 
