@@ -108,6 +108,7 @@ const ReservationForm = () => {
       checkout,
       duration,
       qtdGuest,
+      qtdChild,
       guest,
       requesterName,
       companyName,
@@ -317,8 +318,8 @@ const ReservationForm = () => {
 
           <div className="reservation-form-wrapper">
             <div className="reservation-form-container">
-              <form className="reservation-form-grid">
-
+              {/* Formulário principal */}
+              <form className="reservation-form-grid" onSubmit={handleSubmit}>
                 <div className="reservation-form-group">
                   <label>Check-in</label>
                   <div className="check">
@@ -344,6 +345,7 @@ const ReservationForm = () => {
                     <div>12:00h</div>
                   </div>
                 </div>
+
                 <div className="reservation-form-group tipoPadrao">
                   <div>
                     <label>Tipo</label>
@@ -403,7 +405,7 @@ const ReservationForm = () => {
                       <option value="3">03</option>
                     </select>
                   </div>
-                  <div >
+                  <div>
                     <label>Evento</label>
                     <select
                       value={eventType}
@@ -413,7 +415,6 @@ const ReservationForm = () => {
                       <option value="casamento">Casamento</option>
                       <option value="conferencia">Conferência</option>
                       <option value="outro">Aniversário</option>
-
                     </select>
                   </div>
                 </div>
@@ -427,6 +428,7 @@ const ReservationForm = () => {
                     onChange={handleGuestName}
                   />
                 </div>
+
                 <div className="reservation-selected-product">
                   <div className="reservation-form-group">
                     <label>Acomodação</label>
@@ -446,15 +448,12 @@ const ReservationForm = () => {
                   <div className="product-add-button">
                     <button
                       type="button"
-                      // className="reservation-product-button"
                       onClick={handleAddProduct}
                     >
                       Adicionar à Lista
                     </button>
                   </div>
                 </div>
-
-
 
                 <div className="reservation-form-group">
                   <label>Nome da Empresa</label>
@@ -485,11 +484,9 @@ const ReservationForm = () => {
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                     />
-
                   </div>
                 </div>
-  <div></div>
-  <div></div>
+
                 <div className="reservation-form-group">
                   <label>Forma de Pagamento</label>
                   <select
@@ -507,17 +504,16 @@ const ReservationForm = () => {
                     ))}
                   </select>
                 </div>
-                <div className="reservation-submit">
-                  <form onSubmit={handleSubmit} className="reservation-total-form">
-                    <div className="reservation-total-container">
-                      <h3>Valor Total da Reserva: </h3>
-                      <p>R$ {totalValue.toFixed(2)}</p>
-                      <button type="submit" className="reservation-form-button">
-                        Salvar Reserva
-                      </button>
-                    </div>
-                  </form>
+
+                {/* Mover a parte do valor total e o botão de submissão para o formulário principal */}
+                <div className="reservation-total-container">
+                  <h3>Valor Total da Reserva: </h3>
+                  <p>R$ {totalValue.toFixed(2)}</p>
+                  <button type="submit" className="reservation-form-button">
+                    Salvar Reserva
+                  </button>
                 </div>
+
                 <div className="reservation-product-table-container">
                   <table className="reservation-product-table">
                     <thead>
@@ -555,26 +551,22 @@ const ReservationForm = () => {
                         </tr>
                       ))}
                     </tbody>
-
                   </table>
                 </div>
+
                 <div className="reservation-form-group obs">
                   <label>Observações</label>
                   <textarea
                     placeholder="Digite aqui as observações"
-                    value={guest}
-                    onChange={handleGuestName}
-                    rows={2} //
+                    value={observations}
+                    onChange={(e) => setObservations(e.target.value)}
+                    rows={2}
                   />
                 </div>
               </form>
-
             </div>
-
           </div>
-
         </main>
-
         <Footer />
       </div>
     </>

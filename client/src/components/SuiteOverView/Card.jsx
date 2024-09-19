@@ -39,7 +39,7 @@ export default function OutlinedCard({ number, status, empresa, nome, Checkin, C
     <>
     <Box >
         {/* <Button size="small"></Button> */}
-      <Card variant="outlined" sx={{  maxWidth: 175, maxHeight: 177 ,borderColor: styles.borderColor ,borderWidth: 3,height: '100%',transition: 'transform 0.3s ease','&:hover': {
+      <Card variant="outlined" sx={{  maxWidth: 180, maxHeight: 177 ,borderColor: styles.borderColor ,borderWidth: 3,height: '100%',transition: 'transform 0.3s ease','&:hover': {
       transform: 'scale(1.35)',
     },}}>
         <CardContent sx={{  padding: 1 }}>

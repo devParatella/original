@@ -4,79 +4,88 @@ const {
   User,
   PaymentCondition,
   ReservationProducts,
+  sequelize,
 } = require("../models");
 
 exports.create = async (req, res) => {
+  const transaction = await sequelize.transaction(); // Adicionando transações
+
   try {
     const {
       userId,
       checkin,
       checkout,
       duration,
+      qtdGuest,
+      qtdChild,
+      stand,
+      tipo,
+      guest,
+      requesterName,
+      companyName,
+      phone,
+      email,
+      emailVoucher,
+      eventType,
+      observations,
       products,
-      repeat,
-      repeatCount,
       status,
       paymentConditionId,
       totalValue,
     } = req.body;
-    const reservation = await Reservation.create({
-      userId,
-      checkin,
-      checkout,
-      duration,
-      repeat,
-      repeatCount,
-      status,
-      paymentConditionId,
-      totalValue,
-    });
-    // Adicionar produtos à reserva
-    for (const product of products) {
-      await ReservationProducts.create({
-        reservationId: reservation.id,
-        productId: product.id,
-      });
-    }
-    countRepeat = parseInt(repeatCount);
-    // Lógica de repetição de reservas
-    if (repeat !== "None") {
-      const repeatCount = countRepeat;
-      const repeatInterval = repeat; // daily, weekly, monthly
-      for (let i = 1; i <= repeatCount; i++) {
-        let newDate = new Date(checkin);
-        if (repeatInterval === "Weekly") {
-          newDate.setCheckin(newDate.getCheckin() + 7 * i);
-        } else if (repeatInterval === "Monthly") {
-          newDate.setMonth(newDate.getMonth() + i);
-        } else {
-          newDate.setCheckin(newDate.getCheckin() + i);
-        }
-        const NewRepeatId = reservation.id;
-        const repeatedReservation = await Reservation.create({
-          userId,
-          checkin: newDate,
-          checkout,
-          duration,
-          repeat,
-          repeatCount,
-          repeatId: NewRepeatId,
-          status,
-          paymentConditionId,
-          totalValue,
-        });
-        // Adicionar produtos às reservas repetidas
-        for (const product of products) {
-          await ReservationProducts.create({
-            reservationId: repeatedReservation.id,
-            productId: product.id,
-          });
-        }
-      }
+
+    // Validação de campos obrigatórios
+    if (
+      !userId ||
+      !checkin ||
+      !checkout ||
+      !guest ||
+      !totalValue ||
+      !paymentConditionId
+    ) {
+      throw new Error("Campos obrigatórios estão faltando.");
     }
 
+    // Criar a reserva inicial
+    const reservation = await Reservation.create(
+      {
+        userId,
+        checkin,
+        checkout,
+        duration,
+        qtdGuest,
+        qtdChild,
+        stand,
+        tipo,
+        guest,
+        requesterName,
+        companyName,
+        phone,
+        email,
+        emailVoucher,
+        eventType,
+        observations,
+        status,
+        paymentConditionId,
+        totalValue,
+      },
+      { transaction }
+    );
+
+    // Adicionar produtos à reserva
+    if (products && products.length > 0) {
+      const productEntries = products.map((product) => ({
+        reservationId: reservation.id,
+        productId: product.id,
+      }));
+      await ReservationProducts.bulkCreate(productEntries, { transaction });
+    }
+
+    await transaction.commit(); // Confirma a transação
     res.status(201).json(reservation);
   } catch (error) {
+    console.error("Erro ao criar a reserva:", error); // Loga o erro no terminal
+    await transaction.rollback(); // Reverte a transação em caso de erro
     res.status(500).json({ error: error.message });
   }
 };
@@ -104,41 +113,79 @@ exports.findById = async (req, res) => {
 };
 
 exports.update = async (req, res) => {
-  const { id } = req.params;
-  const { status, productIds } = req.body;
+  const transaction = await sequelize.transaction(); // Transação para a atualização
 
   try {
-    const reservation = await Reservation.findByPk(id, { include: Product });
+    const { id } = req.params;
+    const {
+      status,
+      productIds,
+      checkin,
+      checkout,
+      duration,
+      qtdGuest,
+      qtdChild,
+      stand,
+      tipo,
+      guest,
+      requesterName,
+      companyName,
+      phone,
+      email,
+      emailVoucher,
+      eventType,
+      observations,
+      paymentConditionId,
+      totalValue,
+    } = req.body;
 
+    const reservation = await Reservation.findByPk(id, { include: Product });
     if (!reservation) {
       return res.status(404).json({ error: "Reserva não encontrada" });
     }
 
-    // Atualiza o status da reserva
-    reservation.status = status;
-    await reservation.save();
+    // Atualizar dados da reserva
+    await reservation.update(
+      {
+        status,
+        checkin,
+        checkout,
+        duration,
+        qtdGuest,
+        qtdChild,
+        stand,
+        tipo,
+        guest,
+        requesterName,
+        companyName,
+        phone,
+        email,
+        emailVoucher,
+        eventType,
+        observations,
+        paymentConditionId,
+        totalValue,
+      },
+      { transaction }
+    );
 
-    // Atualiza os produtos relacionados na tabela ReservationProducts
-    if (status === "Aberta" || status === "Finalizada") {
-      if (productIds && productIds.length > 0) {
-        // Remove produtos antigos da relação
-        await ReservationProducts.destroy({ where: { reservationId: id } });
-
-        // Cria novas entradas na tabela ReservationProducts
-        const newProducts = productIds.map((productId) => ({
-          reservationId: id,
-          productId: productId,
-        }));
-
-        await ReservationProducts.bulkCreate(newProducts);
-      }
-    } else if (status === "Cancelada") {
-      // Remove todos os produtos associados à reserva se for cancelada
-      await ReservationProducts.destroy({ where: { reservationId: id } });
+    // Atualizar produtos da reserva
+    if (productIds && productIds.length > 0) {
+      await ReservationProducts.destroy({
+        where: { reservationId: id },
+        transaction,
+      });
+      const newProducts = productIds.map((productId) => ({
+        reservationId: id,
+        productId: productId,
+      }));
+      await ReservationProducts.bulkCreate(newProducts, { transaction });
     }
 
+    await transaction.commit();
     res.status(200).json(reservation);
   } catch (error) {
+    await transaction.rollback();
     res.status(400).json({ error: error.message });
   }
 };
